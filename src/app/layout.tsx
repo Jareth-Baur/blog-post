@@ -31,7 +31,7 @@ export default function RootLayout({
             <li><Link href="/">Home</Link></li>
             <li><Link href="/users">Users</Link></li>
             <li><Link href="/blog">Blog</Link></li>
-            <li><Link href="/categories">Categories</Link></li>
+            <li><Link href="/comments">Comments</Link></li>
           </ul>
         </nav>
         <main className="max-w-3xl mx-auto py-6 px-4">{children}</main>

@@ -11,12 +11,12 @@ export interface BlogPost {
   title: string;
   content: string;
   authorId: string;
-  categoryId: string; // ✅ new field
   date: string;
 }
-// types.ts
-export interface Category {
+export interface Comment {
   id: string;
-  name: string;
-  description: string;
+  postId: string;   // links to BlogPost
+  userId: string;   // links to User
+  body: string;
+  createdAt: string;
 }

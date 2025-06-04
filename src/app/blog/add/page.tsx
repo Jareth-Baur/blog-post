@@ -2,25 +2,24 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BlogPost, User, Category } from '../../types';
+import { BlogPost, User } from '../../types';
 
 export default function AddBlogPost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [authorId, setAuthorId] = useState('');
-  const [categoryId, setCategoryId] = useState('');
   const [users, setUsers] = useState<User[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const router = useRouter();
 
   useEffect(() => {
-    fetch('/api/users').then(res => res.json()).then(setUsers);
-    fetch('/api/categories').then(res => res.json()).then(setCategories);
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(setUsers);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || content.length < 50 || !authorId || !categoryId) {
+    if (!title || content.length < 50 || !authorId) {
       return alert('All fields are required. Content must be at least 50 characters.');
     }
 
@@ -28,7 +27,6 @@ export default function AddBlogPost() {
       title,
       content,
       authorId,
-      categoryId,
       date: new Date().toISOString(),
     };
 
@@ -67,18 +65,6 @@ export default function AddBlogPost() {
             <option key={u.id} value={u.id}>{u.name}</option>
           ))}
         </select>
-
-        <select
-          value={categoryId}
-          onChange={e => setCategoryId(e.target.value)}
-          className="border p-2 w-full"
-        >
-          <option value="">Select Category</option>
-          {categories.map(c => (
-            <option key={c.id} value={c.id}>{c.name}</option>
-          ))}
-        </select>
-
         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
           Add Post
         </button>
